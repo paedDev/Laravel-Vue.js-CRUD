@@ -1,13 +1,13 @@
 <script setup lang="ts">
 import AppLayout from '@/layouts/AppLayout.vue';
-import { products } from '@/routes';
+import { productsCreate } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Create a Product',
-        href: products().url,
+        href: productsCreate().url,
     },
 ];
 </script>

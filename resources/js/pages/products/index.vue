@@ -1,14 +1,14 @@
 <script setup lang="ts">
 import Button from '@/components/ui/button/Button.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { products } from '@/routes';
+import { productsCreate, productsIndex } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, Link } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Products',
-        href: products().url,
+        href: productsIndex().url,
     },
 ];
 </script>
@@ -18,7 +18,7 @@ const breadcrumbs: BreadcrumbItem[] = [
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
-            <Link :href="'products.create'">
+            <Link :href="productsCreate().url">
                 <Button>Create product </Button>
             </Link>
         </div>

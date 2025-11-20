@@ -11,7 +11,7 @@ import {
     SidebarMenuButton,
     SidebarMenuItem,
 } from '@/components/ui/sidebar';
-import { dashboard, products } from '@/routes';
+import { dashboard, productsIndex } from '@/routes';
 import { type NavItem } from '@/types';
 import { Link } from '@inertiajs/vue3';
 import { BookOpen, Folder, LayoutGrid, ShoppingCart } from 'lucide-vue-next';
@@ -25,7 +25,7 @@ const mainNavItems: NavItem[] = [
     },
     {
         title: 'Products',
-        href: products(),
+        href: productsIndex(),
         icon: ShoppingCart,
     },
 ];
