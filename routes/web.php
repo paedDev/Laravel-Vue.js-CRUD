@@ -20,5 +20,7 @@ Route::get('/dashboard', function () {
 Route::middleware(['auth','verified'])->group(function(){
     Route::get('/products', [ProductController::class, 'index'])->name('productsIndex');
     Route::get('/products/create', [ProductController::class, 'create'])->name('productsCreate');
+    Route::post("/products",[ProductController::class,'store'])->name('productsStore');
+   Route::get("/products/{product}/edit", [ProductController::class, 'edit'])->name('productsEdit');
 });
 require __DIR__.'/settings.php';

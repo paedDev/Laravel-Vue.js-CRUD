@@ -10,13 +10,24 @@ import { Head, useForm } from '@inertiajs/vue3';
 
 const breadcrumbs: BreadcrumbItem[] = [
     {
-        title: 'Create a Product',
+        title: 'Edit a Product',
         href: productsCreate().url,
     },
 ];
-
+interface Products {
+    id: number;
+    title: string;
+    price: number;
+    description: string | null;
+}
+interface OldProductsValue {
+    data: Products[];
+}
+defineProps<{
+    products: OldProductsValue;
+}>();
 const form = useForm({
-    title: '',
+    title: products.data.title,
     price: '',
     description: '',
 });
@@ -26,7 +37,7 @@ const handleSubmit = () => {
 </script>
 
 <template>
-    <Head title="Create a Product" />
+    <Head title="Edit a Product" />
 
     <AppLayout :breadcrumbs="breadcrumbs">
         <div class="p-4">
@@ -65,7 +76,7 @@ const handleSubmit = () => {
                     <InputError :message="form.errors.description" />
                 </div>
                 <Button type="submit" :disabled="form.processing"
-                    >Add a product</Button
+                    >Edit a product</Button
                 >
             </form>
         </div>
