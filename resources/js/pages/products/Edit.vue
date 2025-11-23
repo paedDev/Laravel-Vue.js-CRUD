@@ -4,35 +4,33 @@ import Button from '@/components/ui/button/Button.vue';
 import Input from '@/components/ui/input/Input.vue';
 import Label from '@/components/ui/label/Label.vue';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { productsCreate, productsStore } from '@/routes';
+import { productsEdit, productsUpdate } from '@/routes';
 import { type BreadcrumbItem } from '@/types';
 import { Head, useForm } from '@inertiajs/vue3';
-
-const breadcrumbs: BreadcrumbItem[] = [
-    {
-        title: 'Edit a Product',
-        href: productsCreate().url,
-    },
-];
-interface Products {
+interface Product {
     id: number;
     title: string;
     price: number;
     description: string | null;
 }
-interface OldProductsValue {
-    data: Products[];
-}
-defineProps<{
-    products: OldProductsValue;
+
+const props = defineProps<{
+    product: Product;
 }>();
+const breadcrumbs: BreadcrumbItem[] = [
+    {
+        title: 'Edit a Product',
+        href: productsEdit(props.product).url,
+    },
+];
+
 const form = useForm({
-    title: products.data.title,
-    price: '',
-    description: '',
+    title: props.product.title,
+    price: props.product.price,
+    description: props.product.description ?? '',
 });
 const handleSubmit = () => {
-    form.post(productsStore().url);
+    form.put(productsUpdate(props.product).url);
 };
 </script>
 

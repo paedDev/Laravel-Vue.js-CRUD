@@ -11,9 +11,14 @@ import {
     TableRow,
 } from '@/components/ui/table';
 import AppLayout from '@/layouts/AppLayout.vue';
-import { productsCreate, productsEdit, productsIndex } from '@/routes';
+import {
+    productsCreate,
+    productsDelete,
+    productsEdit,
+    productsIndex,
+} from '@/routes';
 import { type BreadcrumbItem } from '@/types';
-import { Head, Link, usePage } from '@inertiajs/vue3';
+import { Head, Link, useForm, usePage } from '@inertiajs/vue3';
 const breadcrumbs: BreadcrumbItem[] = [
     {
         title: 'Products',
@@ -37,6 +42,12 @@ const page = usePage();
 defineProps<{
     products: PaginatedProducts;
 }>();
+const deleteForm = useForm({});
+const deleteProduct = (product: Product) => {
+    if (confirm('Are you sure you want to delete this product?')) {
+        deleteForm.delete(productsDelete(product).url);
+    }
+};
 </script>
 
 <template>
@@ -81,7 +92,12 @@ defineProps<{
                                 <Link :href="productsEdit(product).url">
                                     <Button>Edit</Button>
                                 </Link>
-                                <Button variant="destructive">Delete</Button>
+                                <Button
+                                    @click="deleteProduct(product)"
+                                    :disabled="deleteForm.processing"
+                                    variant="destructive"
+                                    >Delete</Button
+                                >
                             </TableCell>
                         </TableRow>
                         <TableRow v-if="products.data.length === 0">

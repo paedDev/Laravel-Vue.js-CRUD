@@ -27,7 +27,22 @@ class ProductController extends Controller
         Product::create($attributes);
         return redirect()->route('productsIndex')->with('message', "Product added successfully");
     }
-    public function Edit (Product $product){
+    public function edit ( Product $product){
         return Inertia::render('products/Edit',compact('product'));
     }
+    public function update (Request $request,Product $product){
+        $attributes = $request->validate([
+        'title' => ['required', 'string', 'max:255'],
+        'price' => ['required', 'numeric', 'min:0'],
+        'description' => ['nullable', 'string', 'max:255'],
+    ]);
+     $product->update($attributes);
+     return redirect()->route('productsIndex')->with('success', 'Product updated successfully!');
+    }
+    public function destroy(Product $product)
+{
+    $product->delete();
+
+    return redirect()->route('productsIndex')->with('success', 'Product deleted successfully!');
+}
 }
